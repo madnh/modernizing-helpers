@@ -1,0 +1,21 @@
+{
+  "name": "madnh/modernizing-helpers",
+  "description": "Modernizing helpers for legacy code",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "MaDnh,",
+      "email": "dodanhmanh@gmail.com"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "^6.3"
+  },
+  "autoload": {
+    "files": [
+      "src/helpers.php"
+    ]
+  }
+}

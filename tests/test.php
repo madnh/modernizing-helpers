@@ -412,19 +412,29 @@ class SupportArrTest extends TestCase
     public function testWhere()
     {
         $array = array(100, '200', 300, '400', 500);
-        $array = array_where($array, function ($value, $key) {
-            return is_string($value);
-        });
+        if (version_compare(PHP_VERSION, '5.6.0') >= 0) {
+            $array = array_where($array, function ($value, $key) {
+                return is_string($value);
+            });
+        } else {
+            $array = array_where($array, function ($value) {
+                return is_string($value);
+            });
+        }
+
         $this->assertEquals(array(1 => 200, 3 => 400), $array);
     }
 
     public function testWhereKey()
     {
-        $array = array('10' => 1, 'foo' => 3, 20 => 2);
-        $array = array_where($array, function ($value, $key) {
-            return is_numeric($key);
-        });
-        $this->assertEquals(array('10' => 1, 20 => 2), $array);
+        if (version_compare(PHP_VERSION, '5.6.0') >= 0) {
+            $array = array('10' => 1, 'foo' => 3, 20 => 2);
+            $array = array_where($array, function ($value, $key) {
+                return is_numeric($key);
+            });
+
+            $this->assertEquals(array('10' => 1, 20 => 2), $array);
+        }
     }
 
     public function testForget()

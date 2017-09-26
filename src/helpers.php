@@ -904,7 +904,7 @@ if (!function_exists('array_first')) {
      *
      * @return mixed
      */
-    function array_first($array, callable $callback = null, $default = null)
+    function array_first($array, $callback = null, $default = null)
     {
         if (is_null($callback)) {
             if (empty($array)) {
@@ -935,7 +935,7 @@ if (!function_exists('array_last')) {
      *
      * @return mixed
      */
-    function array_last($array, callable $callback = null, $default = null)
+    function array_last($array, $callback = null, $default = null)
     {
         if (is_null($callback)) {
             return empty($array) ? $default : end($array);
@@ -1340,9 +1340,13 @@ if (!function_exists('array_where')) {
      *
      * @return array
      */
-    function array_where($array, callable $callback)
+    function array_where($array, $callback)
     {
-        return array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
+        if(version_compare(PHP_VERSION, '5.6.0') >= 0){
+            return array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
+        }
+
+        return array_filter($array, $callback);
     }
 }
 if (!function_exists('array_wrap')) {
